@@ -25,6 +25,7 @@ namespace API
                 var context = services.GetRequiredService<DataContext>(); // Get the DataContext service from the services
                 
                 await context.Database.MigrateAsync(); // Migrate the database
+                await Seed.SeedUsers(context);
 
                
             }catch(Exception ex){
