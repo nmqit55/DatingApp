@@ -19,7 +19,7 @@ const routes: Routes = [      //điều hướng sang các chức năng
     children:
     [
       {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
-      {path: 'members/:id', component: MemberDetailComponent},
+      {path: 'members/:username', component: MemberDetailComponent},
       {path: 'lists', component: ListComponent},
       {path: 'messages', component: MessagesComponent},
     ]
