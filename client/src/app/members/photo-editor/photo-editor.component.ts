@@ -1,3 +1,4 @@
+import { Photo } from './../../_models/photo';
 import { MembersService } from 'src/app/_services/members.service';
 import { AccountService } from 'src/app/_services/account.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -6,7 +7,6 @@ import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs';
-import { Photo } from 'src/app/_models/photo';
 
 @Component({
   selector: 'app-photo-editor',
@@ -83,6 +83,11 @@ export class PhotoEditorComponent implements OnInit {
       if(response) {
         const photo = JSON.parse(response);
         this.member?.photos.push(photo);
+        if(photo.isMain && this.user && this.member){
+          this.user.photoUrl = photo.url;
+          this.member.photoUrl = photo.url;
+          this.accountService.setCurrentUser(this.user);
+        }
       }
     }
 

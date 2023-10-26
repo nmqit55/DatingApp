@@ -7,6 +7,7 @@ lỗi 404 postman:
 - xem đường dẫn có sai ko
 - kiểm tra code đã ghi giống chưa?
 
-
+lỗi ko đọc được giá trị NULL
+- thêm ? vào thuộc tính biến
 
 -- khi thêm 1 hàm private cần phải import vào trong file đó
