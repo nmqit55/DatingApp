@@ -22,6 +22,7 @@ public static class ApplicationServiceExtensions
         {
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
+        services.AddScoped<LogUserActivity>();
 
         return services;
     }
