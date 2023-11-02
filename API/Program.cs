@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using API.Extensions;
+using API.Middleware;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +27,7 @@ namespace API
                 var context = services.GetRequiredService<DataContext>(); // Get the DataContext service from the services
                 
                 await context.Database.MigrateAsync(); // Migrate the database
-                await Seed.SeedUsers(context);
+                // await Seed.SeedUsers(context);
 
                
             }catch(Exception ex){
@@ -42,5 +44,34 @@ namespace API
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services,IConfiguration config)
+        {
+            
+            services.AddApplicationServices(config);
+            services.AddControllers();
+            services.AddCors();
+            services.AddIdentityServices(config);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
