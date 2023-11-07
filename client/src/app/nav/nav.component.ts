@@ -1,8 +1,5 @@
-import { User } from '../_models/user';
-import { Observable } from 'rxjs';
 import { AccountService } from './../_services/account.service';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,9 +18,9 @@ export class NavComponent implements OnInit {
 
   }
   login() {
-    this.accountService.login(this.model).subscribe(Response =>{
-      this.router.navigateByUrl('/members'); //khi người dùng login vào sẽ tự động truy cập đến page members
-    })
+    this.accountService.login(this.model).subscribe({next: _ =>
+      this.router.navigateByUrl('/members') //khi người dùng login vào sẽ tự động truy cập đến page members
+  })
   }
 
   logout(){

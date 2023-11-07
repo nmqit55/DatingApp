@@ -14,7 +14,7 @@ namespace API.Data
     }
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
@@ -54,5 +54,5 @@ namespace API.Data
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-    }
+}
 }
